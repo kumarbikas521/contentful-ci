@@ -58,7 +58,7 @@ class TestApp:
         """Test content model of a test"""
         post_content_type = contentful_client.content_type("Test")
     # Expect 5 fields in a post now that we’ve added an author field.
-        assert len(post_content_type.fields) == 2
+        assert len(post_content_type.fields) == 1
 
     def test_hawkeye_get(self, client):
         """Test Hawkeye is listed as a charcter on the index route"""
