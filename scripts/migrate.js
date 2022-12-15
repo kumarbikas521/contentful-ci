@@ -30,9 +30,7 @@ async function pocess(){
     console.log("Running with the following configuration");
     console.log(`SPACE_ID: ${SPACE_ID}`);
 
-    if (
-      ENVIRONMENT_INPUT == 'master'
-    ) {
+    if ( ENVIRONMENT_INPUT == 'master' || ENVIRONMENT_INPUT == 'staging' || ENVIRONMENT_INPUT == 'qa') {
       console.log(`Running on ${ENVIRONMENT_INPUT}.`);
       console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
       ENVIRONMENT_ID = `${ENVIRONMENT_INPUT}-`.concat(getStringDate());
@@ -46,11 +44,7 @@ async function pocess(){
 
     try {
       environment = await space.getEnvironment(ENVIRONMENT_ID);
-      if (
-        ENVIRONMENT_ID != 'master' ||
-        ENVIRONMENT_ID != 'staging' ||
-        ENVIRONMENT_ID != 'qa'
-      ) {
+      if ( ENVIRONMENT_ID != 'master' || ENVIRONMENT_ID != 'staging' || ENVIRONMENT_ID != 'qa') {
         await environment.delete();
         console.log('Environment deleted');
       }
@@ -59,11 +53,7 @@ async function pocess(){
     }
 
     // ---------------------------------------------------------------------------
-    if (
-      ENVIRONMENT_ID != 'master' ||
-      ENVIRONMENT_ID != 'staging' ||
-      ENVIRONMENT_ID != 'qa'
-    ) {
+    if (ENVIRONMENT_ID != 'master' || ENVIRONMENT_ID != 'staging' || ENVIRONMENT_ID != 'qa') {
       console.log(`Creating environment ${ENVIRONMENT_ID}`);
       environment = await space.createEnvironmentWithId(ENVIRONMENT_ID, {
         name: ENVIRONMENT_ID,
@@ -103,9 +93,7 @@ async function pocess(){
       },
     };
 
-    const {
-      items: keys
-    } = await space.getApiKeys();
+    const { items: keys } = await space.getApiKeys();
     await Promise.all(
       keys.map((key) => {
         console.log(`Updating - ${key.sys.id}`);
@@ -122,7 +110,8 @@ async function pocess(){
 
     // ---------------------------------------------------------------------------
     console.log('Read all the available migrations from the file system');
-    const files = await readdirSync(MIGRATIONS_DIR)
+    console.log(`Directoy -  ${MIGRATIONS_DIR}`)
+    const files = await readdirAsync(MIGRATIONS_DIR)
     console.log(`list of files ${files}`);
      const availableMigrations = files.filter((file) => /^\d+?\.js$/.test(file))
       .map((file) => getVersionOfFile(file));
