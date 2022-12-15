@@ -115,13 +115,11 @@ async function pocess(){
     console.log(`list of files ${files}`);
      const availableMigrations = files.filter((file) => /^\d+?\.js$/.test(file))
       .map((file) => getVersionOfFile(file));
-
+      console.log(`availableMigrations - ${availableMigrations}`)
     // ---------------------------------------------------------------------------
     console.log('Figure out latest ran migration of the contentful space');
-    const {
-      items: versions
-    } = await environment.getEntries({
-      content_type: 'versionTracking',
+    const { items: versions } = await environment.getEntries({
+      content_type: 'versionTracking'
     });
 
     if (!versions.length || versions.length > 1) {
@@ -130,7 +128,7 @@ async function pocess(){
 
     let storedVersionEntry = versions[0];
     const currentVersionString = storedVersionEntry.fields.version[defaultLocale];
-
+    console.log(`curent vesion - ${currentVersionString}`)
     // ---------------------------------------------------------------------------
     console.log('Evaluate which migrations to run');
     const currentMigrationIndex = availableMigrations.indexOf(currentVersionString);
@@ -141,6 +139,7 @@ async function pocess(){
       );
     }
     const migrationsToRun = availableMigrations.slice(currentMigrationIndex + 1);
+    console.log(`migrationsToRun - ${migrationsToRun}`)
     const migrationOptions = {
       spaceId: SPACE_ID,
       environmentId: ENVIRONMENT_ID,
@@ -174,11 +173,7 @@ async function pocess(){
 
     // ---------------------------------------------------------------------------
     console.log('Checking if we need to update an alias');
-    if (
-      ENVIRONMENT_INPUT == 'master' ||
-      ENVIRONMENT_INPUT == 'staging' ||
-      ENVIRONMENT_INPUT == 'qa'
-    ) {
+    if ( ENVIRONMENT_INPUT == 'master' || ENVIRONMENT_INPUT == 'staging' || ENVIRONMENT_INPUT == 'qa') {
       console.log(`Running on ${ENVIRONMENT_INPUT}.`);
       console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
       await space
