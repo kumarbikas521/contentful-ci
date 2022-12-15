@@ -177,7 +177,13 @@ async function pocess(){
       console.log(`Running on ${ENVIRONMENT_INPUT}.`);
       console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
       await updateAlias(space, ENVIRONMENT_INPUT, ENVIRONMENT_ID)
-      console.log(`${ENVIRONMENT_INPUT} alias updated.`);
+      .then((alias)=>{
+        console.log(`${ENVIRONMENT_INPUT} alias updated.`);
+      })
+      .catch((err)=>{
+        console.error(err)
+      })
+      
     } else {
       console.log('Running on feature branch');
       console.log('No alias changes required');
@@ -196,9 +202,8 @@ async function updateAlias(space, ENVIRONMENT_INPUT, ENVIRONMENT_ID){
     .getEnvironmentAlias(ENVIRONMENT_INPUT)
     .then((alias) => {
       alias.environment.sys.id = ENVIRONMENT_ID;
-      return alias.update();
+      resolve(alias.update())
     })
-    .then((alias) => console.log(`alias ${alias.sys.id} updated.`))
     .catch(console.error);
   })
 }
