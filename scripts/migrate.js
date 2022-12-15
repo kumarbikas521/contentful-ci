@@ -1,4 +1,4 @@
-
+(async () => {
     try {
         const { promisify } = require("util");
         const { readdir } = require("fs");
@@ -26,38 +26,20 @@
 
         let environment;
         console.log("Running with the following configuration");
-        console.log(`SPACE_ID: ${SPACE_ID}`);}
-        catch(e){
-
-        }
-  
-
+        console.log(`SPACE_ID: ${SPACE_ID}`);
+        
     if (
-        ENVIRONMENT_INPUT == 'master'
-      ) {
-        console.log(`Running on ${ENVIRONMENT_INPUT}.`);
-        console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
-        ENVIRONMENT_ID = `${ENVIRONMENT_INPUT}-`.concat(getStringDate());
-      } else {
-        console.log('Running on feature branch');
-        ENVIRONMENT_ID = ENVIRONMENT_INPUT;
-      }
-      console.log(`ENVIRONMENT_ID: ${ENVIRONMENT_ID}`);
-
-      function getStringDate() {
-        var d = new Date();
-        function pad(n) {
-          return n < 10 ? '0' + n : n;
-        }
-        return (
-          d.toISOString().substring(0, 10) +
-          '-' +
-          pad(d.getUTCHours()) +
-          pad(d.getUTCMinutes())
-        );
-      }
-
-      // ---------------------------------------------------------------------------
+      ENVIRONMENT_INPUT == 'master'
+    ) {
+      console.log(`Running on ${ENVIRONMENT_INPUT}.`);
+      console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
+      ENVIRONMENT_ID = `${ENVIRONMENT_INPUT}-`.concat(getStringDate());
+    } else {
+      console.log('Running on feature branch');
+      ENVIRONMENT_ID = ENVIRONMENT_INPUT;
+    }
+    console.log(`ENVIRONMENT_ID: ${ENVIRONMENT_ID}`);
+     // ---------------------------------------------------------------------------
 console.log(`Checking for existing versions of environment: ${ENVIRONMENT_ID}`);
 
 try {
@@ -217,3 +199,60 @@ if (
   console.log('No alias changes required');
 }
 console.log('All done!');
+      }
+        catch(e){
+
+        }
+    })
+
+
+      function getStringDate() {
+        var d = new Date();
+        function pad(n) {
+          return n < 10 ? '0' + n : n;
+        }
+        return (
+          d.toISOString().substring(0, 10) +
+          '-' +
+          pad(d.getUTCHours()) +
+          pad(d.getUTCMinutes())
+        );
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
