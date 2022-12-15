@@ -176,14 +176,7 @@ async function pocess(){
     if ( ENVIRONMENT_INPUT == 'master' || ENVIRONMENT_INPUT == 'staging' || ENVIRONMENT_INPUT == 'qa') {
       console.log(`Running on ${ENVIRONMENT_INPUT}.`);
       console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
-      await space
-        .getEnvironmentAlias(ENVIRONMENT_INPUT)
-        .then((alias) => {
-          alias.environment.sys.id = ENVIRONMENT_ID;
-          return alias.update();
-        })
-        .then((alias) => console.log(`alias ${alias.sys.id} updated.`))
-        .catch(console.error);
+      await updateAlias(space)
       console.log(`${ENVIRONMENT_INPUT} alias updated.`);
     } else {
       console.log('Running on feature branch');
@@ -197,6 +190,18 @@ async function pocess(){
   })
 }
 
+async function updateAlias(space){
+  return new Promise(async(resolve, reject)=>{
+    space
+    .getEnvironmentAlias(ENVIRONMENT_INPUT)
+    .then((alias) => {
+      alias.environment.sys.id = ENVIRONMENT_ID;
+      return alias.update();
+    })
+    .then((alias) => console.log(`alias ${alias.sys.id} updated.`))
+    .catch(console.error);
+  })
+}
 
 function getStringDate() {
   var d = new Date();
