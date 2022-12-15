@@ -54,6 +54,12 @@ class TestApp:
         assert author.id == "author"
         assert author.type == "Symbol"
 
+    def test_content_type_test(self, contentful_client):
+        """Test content model of a test"""
+        post_content_type = contentful_client.content_type("test")
+    # Expect 5 fields in a post now that we’ve added an author field.
+        assert len(post_content_type.fields) == 1
+
     def test_hawkeye_get(self, client):
         """Test Hawkeye is listed as a charcter on the index route"""
         res = client.get(url_for("index"))
