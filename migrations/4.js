@@ -1,4 +1,4 @@
 module.exports = function runMigration(migration) {
     const test = migration.createContentType('Test');
-    test.createField('id').name('id').type('Symbol').required(false);
+    test.createField('title').name('title').type('Symbol').required(false);
   };
