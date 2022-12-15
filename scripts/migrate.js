@@ -198,6 +198,7 @@ async function pocess(){
 
 async function updateAlias(space, ENVIRONMENT_INPUT, ENVIRONMENT_ID){
   return new Promise(async(resolve, reject)=>{
+   try {
     space
     .getEnvironmentAlias(ENVIRONMENT_INPUT)
     .then((alias) => {
@@ -205,6 +206,9 @@ async function updateAlias(space, ENVIRONMENT_INPUT, ENVIRONMENT_ID){
       resolve(alias.update())
     })
     .catch(console.error);
+   } catch (error) {
+    console.log(error)
+   }
   })
 }
 
