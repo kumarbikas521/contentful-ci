@@ -122,8 +122,9 @@ async function pocess(){
 
     // ---------------------------------------------------------------------------
     console.log('Read all the available migrations from the file system');
-    const availableMigrations = (await readdirSync(MIGRATIONS_DIR))
-      .filter((file) => /^\d+?\.js$/.test(file))
+    const files = await readdirSync(MIGRATIONS_DIR)
+    console.log(`list of files ${files}`);
+     const availableMigrations = files.filter((file) => /^\d+?\.js$/.test(file))
       .map((file) => getVersionOfFile(file));
 
     // ---------------------------------------------------------------------------
