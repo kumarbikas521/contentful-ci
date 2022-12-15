@@ -56,7 +56,7 @@ class TestApp:
 
     def test_content_type_test(self, contentful_client):
         """Test content model of a test"""
-        post_content_type = contentful_client.content_type("test")
+        post_content_type = contentful_client.content_type("Test")
     # Expect 5 fields in a post now that we’ve added an author field.
         assert len(post_content_type.fields) == 1
 
