@@ -40,7 +40,7 @@ jobs:
           name: Preparing environment for testing
           command: |
             . venv/bin/activate
-            scripts/migrate.js $SPACE_ID "CI_$CIRCLE_BRANCH" $MANAGEMENT_API_KEY
+            scripts/migrate.js $SPACE_ID "master" $MANAGEMENT_API_KEY
 
       # run tests!
       # this example uses Django's built-in test-runner
