@@ -1,5 +1,5 @@
 const { promisify } = require("util");
-const { readdir } = require("fs");
+const { readdir, readdirSync } = require("fs");
 const readdirAsync = promisify(readdir);
 const path = require("path");
 const { createClient } = require("contentful-management");
@@ -122,7 +122,7 @@ async function pocess(){
 
     // ---------------------------------------------------------------------------
     console.log('Read all the available migrations from the file system');
-    const availableMigrations = (await readdirAsync(MIGRATIONS_DIR))
+    const availableMigrations = (await readdirSync(MIGRATIONS_DIR))
       .filter((file) => /^\d+?\.js$/.test(file))
       .map((file) => getVersionOfFile(file));
 
