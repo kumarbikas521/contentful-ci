@@ -1,4 +1,4 @@
-(async () => {
+
     try {
         const { promisify } = require("util");
         const { readdir } = require("fs");
@@ -30,7 +30,7 @@
         catch(e){
 
         }
-    })
+  
 
     if (
         ENVIRONMENT_INPUT == 'master'
