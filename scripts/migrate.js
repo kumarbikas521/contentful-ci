@@ -176,7 +176,7 @@ async function pocess(){
     if ( ENVIRONMENT_INPUT == 'master' || ENVIRONMENT_INPUT == 'staging' || ENVIRONMENT_INPUT == 'qa') {
       console.log(`Running on ${ENVIRONMENT_INPUT}.`);
       console.log(`Updating ${ENVIRONMENT_INPUT} alias.`);
-      await updateAlias(space)
+      await updateAlias(space, ENVIRONMENT_INPUT, ENVIRONMENT_ID)
       console.log(`${ENVIRONMENT_INPUT} alias updated.`);
     } else {
       console.log('Running on feature branch');
@@ -190,7 +190,7 @@ async function pocess(){
   })
 }
 
-async function updateAlias(space){
+async function updateAlias(space, ENVIRONMENT_INPUT, ENVIRONMENT_ID){
   return new Promise(async(resolve, reject)=>{
     space
     .getEnvironmentAlias(ENVIRONMENT_INPUT)
