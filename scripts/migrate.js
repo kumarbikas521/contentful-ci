@@ -1,5 +1,5 @@
 const { promisify } = require("util");
-const { readdir, readdirSync } = require("fs");
+const { readdir } = require("fs");
 const readdirAsync = promisify(readdir);
 const path = require("path");
 const { createClient } = require("contentful-management");
@@ -16,7 +16,8 @@ async function pocess(){
     //
     // Configuration variables
     //
-    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN] = process.argv;
+    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, PR_BASE_BRANCH] = process.argv;
+    console.log(`PR_BASE_BRANCH - ${PR_BASE_BRANCH}`)
     const MIGRATIONS_DIR = path.join(".", "migrations");
 
     const client = createClient({
