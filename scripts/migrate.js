@@ -189,6 +189,12 @@ async function pocess(){
       console.log('Running on feature branch');
       console.log('No alias changes required');
     }
+    // Delete feature branch after PR merge
+    if (PR_BASE_BRANCH != undefined) {
+      await space.getEnvironment(ENVIRONMENT_ID).then(async(environment)=>{
+        await environment.delete();
+      })        
+    }
     console.log('All done!');
   } catch (e) {
 
