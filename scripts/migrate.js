@@ -191,6 +191,7 @@ async function pocess(){
     }
     // Delete feature branch after PR merge
     if (PR_BASE_BRANCH != undefined) {
+      console.log(`Deleting PR base branch - ${PR_BASE_BRANCH}`)
       await space.getEnvironment(ENVIRONMENT_ID).then(async(environment)=>{
         await environment.delete();
       })        
