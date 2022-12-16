@@ -1,5 +1,5 @@
 const { promisify } = require("util");
-const { readdir, readdirSync } = require("fs");
+const { readdir } = require("fs");
 const readdirAsync = promisify(readdir);
 const path = require("path");
 const { createClient } = require("contentful-management");
@@ -16,7 +16,8 @@ async function pocess(){
     //
     // Configuration variables
     //
-    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN] = process.argv;
+    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, PR_BASE_BRANCH] = process.argv;
+    console.log(`PR_BASE_BRANCH - ${PR_BASE_BRANCH}`)
     const MIGRATIONS_DIR = path.join(".", "migrations");
 
     const client = createClient({
@@ -187,6 +188,13 @@ async function pocess(){
     } else {
       console.log('Running on feature branch');
       console.log('No alias changes required');
+    }
+    // Delete feature branch after PR merge
+    if (PR_BASE_BRANCH != undefined) {
+      console.log(`Deleting PR base branch - ${PR_BASE_BRANCH}`)
+      await space.getEnvironment(ENVIRONMENT_ID).then(async(environment)=>{
+        await environment.delete();
+      })        
     }
     console.log('All done!');
   } catch (e) {

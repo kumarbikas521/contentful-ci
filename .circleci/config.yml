@@ -33,14 +33,13 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            npm install
-      
+            npm install   
 
       - run:
           name: Preparing environment for testing
           command: |
             . venv/bin/activate
-            node scripts/migrate.js $SPACE_ID $CIRCLE_BRANCH $MANAGEMENT_API_KEY
+            node scripts/migrate.js $SPACE_ID $CIRCLE_BRANCH $MANAGEMENT_API_KEY $GITHUB_PR_BASE_BRANCH
 
       # run tests!
       # this example uses Django's built-in test-runner
