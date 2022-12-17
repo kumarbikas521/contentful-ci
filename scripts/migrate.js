@@ -16,15 +16,15 @@ async function pocess(){
     //
     // Configuration variables
     //
-    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, GHA_Meta] = process.argv;
-    console.log(`DATA - ${GHA_Meta}`)
+    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, DELETED_BRANCH] = process.argv;
+    console.log(`DELETED_BRANCH - ${DELETED_BRANCH}`)
        // Delete environment from contentful
-        if (PR_BASE_BRANCH != undefined) {
-          console.log(`Deleting - ${PR_BASE_BRANCH} from contentful`)
+        if (DELETED_BRANCH != undefined) {
+          console.log(`Deleting - ${DELETED_BRANCH} from contentful`)
          try {
-          await space.getEnvironment(PR_BASE_BRANCH).then(async(environment)=>{
+          await space.getEnvironment(DELETED_BRANCH).then(async(environment)=>{
             await environment.delete().then(()=>{
-              console.log(`Deleted - ${PR_BASE_BRANCH} from contentful`)
+              console.log(`Deleted - ${DELETED_BRANCH} from contentful`)
               return resolve("successfuly deleted..")
             })            
           })
