@@ -31,13 +31,15 @@ async function pocess(){
           await space.getEnvironment(DELETED_BRANCH).then(async(environment)=>{
             await environment.delete().then(()=>{
               console.log(`Deleted - ${DELETED_BRANCH} from contentful`)
-              return resolve("successfuly deleted..")
+              resolve("successfuly deleted..")
+              return
             })            
           })
          } catch (error) {
           console.error("error while deleting environment..")
           console.error(error)
-          return reject(error)
+          reject(error)
+          return
          }        
         }
 
