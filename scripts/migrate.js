@@ -31,6 +31,7 @@ async function pocess(){
          } catch (error) {
           console.error("error while deleting environment..")
           console.error(error)
+          return reject(error)
          }        
         }
     const MIGRATIONS_DIR = path.join(".", "migrations");
