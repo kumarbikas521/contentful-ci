@@ -16,8 +16,8 @@ async function pocess(){
     //
     // Configuration variables
     //
-    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, DATA] = process.argv;
-    console.log(`DATA - ${DATA}`)
+    const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, GHA_Meta] = process.argv;
+    console.log(`DATA - ${GHA_Meta}`)
         // Delete feature branch after PR merge
         // if (PR_BASE_BRANCH != undefined) {
         //   console.log(`Deleting - ${PR_BASE_BRANCH} from contentful`)
