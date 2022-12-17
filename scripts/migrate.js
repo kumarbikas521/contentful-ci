@@ -18,6 +18,16 @@ async function pocess(){
     //
     const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, PR_BASE_BRANCH] = process.argv;
     console.log(`PR_BASE_BRANCH - ${PR_BASE_BRANCH}`)
+        // Delete feature branch after PR merge
+        if (PR_BASE_BRANCH != undefined) {
+          console.log(`Deleting - ${PR_BASE_BRANCH} from contentful`)
+          await space.getEnvironment(PR_BASE_BRANCH).then(async(environment)=>{
+            await environment.delete().then(()=>{
+              console.log(`Deleted - ${PR_BASE_BRANCH} from contentful`)
+              return resolve("deleted..")
+            })            
+          })        
+        }
     const MIGRATIONS_DIR = path.join(".", "migrations");
 
     const client = createClient({
@@ -188,13 +198,6 @@ async function pocess(){
     } else {
       console.log('Running on feature branch');
       console.log('No alias changes required');
-    }
-    // Delete feature branch after PR merge
-    if (PR_BASE_BRANCH != undefined) {
-      console.log(`Deleting PR base branch - ${PR_BASE_BRANCH}`)
-      await space.getEnvironment(ENVIRONMENT_ID).then(async(environment)=>{
-        await environment.delete();
-      })        
     }
     console.log('All done!');
   } catch (e) {
