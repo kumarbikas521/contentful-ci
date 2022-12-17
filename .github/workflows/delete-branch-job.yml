@@ -7,6 +7,7 @@ jobs:
       - name: Trigger CircleCI Build
         id: "deletebranch"
         uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0.5
+        with:
+          GHA_Meta: ${{ github.event.ref }}
         env:
           CCI_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: ${{ github.event.ref }} 
