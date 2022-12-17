@@ -23,7 +23,6 @@ async function pocess(){
       accessToken: CMA_ACCESS_TOKEN,
     });
     const space = await client.getSpace(SPACE_ID);
-    console.log(`DELETED_BRANCH - ${DELETED_BRANCH}`)
        // Delete environment from contentful
         if (DELETED_BRANCH != undefined) {
           console.log(`Deleting - ${DELETED_BRANCH} from contentful`)
