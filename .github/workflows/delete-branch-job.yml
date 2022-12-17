@@ -10,4 +10,4 @@ jobs:
         with:
           GHA_Meta: ${{ github.event.ref }}
         env:
-          CCI_TOKEN: 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
+          CCI_TOKEN: f67b3607071c8f86f01f7fc8e0ce4fa15c8dbbb6
