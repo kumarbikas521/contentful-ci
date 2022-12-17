@@ -8,4 +8,5 @@ jobs:
         id: "deletebranch"
         uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0.5
         env:
-          CCI_TOKEN: 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
+          CCI_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.event.ref }} 
