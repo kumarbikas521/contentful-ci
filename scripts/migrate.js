@@ -17,6 +17,12 @@ async function pocess(){
     // Configuration variables
     //
     const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, DELETED_BRANCH] = process.argv;
+    const MIGRATIONS_DIR = path.join(".", "migrations");
+
+    const client = createClient({
+      accessToken: CMA_ACCESS_TOKEN,
+    });
+    const space = await client.getSpace(SPACE_ID);
     console.log(`DELETED_BRANCH - ${DELETED_BRANCH}`)
        // Delete environment from contentful
         if (DELETED_BRANCH != undefined) {
@@ -34,12 +40,6 @@ async function pocess(){
           return reject(error)
          }        
         }
-    const MIGRATIONS_DIR = path.join(".", "migrations");
-
-    const client = createClient({
-      accessToken: CMA_ACCESS_TOKEN,
-    });
-    const space = await client.getSpace(SPACE_ID);
 
     var ENVIRONMENT_ID = "";
 
