@@ -6,7 +6,8 @@ jobs:
     steps:
       - name: Trigger CircleCI Build
         id: "deletebranch"
-        uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0.3
-        env:
-          CCI_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: circleci/trigger_circleci_pipeline@v1.0
+        with:
           BRANCH_NAME: ${{ github.event.ref }} 
+        env:
+          CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
