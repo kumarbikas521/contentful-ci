@@ -18,16 +18,21 @@ async function pocess(){
     //
     const [, , SPACE_ID, ENVIRONMENT_INPUT, CMA_ACCESS_TOKEN, GHA_Meta] = process.argv;
     console.log(`DATA - ${GHA_Meta}`)
-        // Delete feature branch after PR merge
-        // if (PR_BASE_BRANCH != undefined) {
-        //   console.log(`Deleting - ${PR_BASE_BRANCH} from contentful`)
-        //   await space.getEnvironment(PR_BASE_BRANCH).then(async(environment)=>{
-        //     await environment.delete().then(()=>{
-        //       console.log(`Deleted - ${PR_BASE_BRANCH} from contentful`)
-        //       return resolve("deleted..")
-        //     })            
-        //   })        
-        // }
+       // Delete environment from contentful
+        if (PR_BASE_BRANCH != undefined) {
+          console.log(`Deleting - ${PR_BASE_BRANCH} from contentful`)
+         try {
+          await space.getEnvironment(PR_BASE_BRANCH).then(async(environment)=>{
+            await environment.delete().then(()=>{
+              console.log(`Deleted - ${PR_BASE_BRANCH} from contentful`)
+              return resolve("successfuly deleted..")
+            })            
+          })
+         } catch (error) {
+          console.error("error while deleting environment..")
+          console.error(error)
+         }        
+        }
     const MIGRATIONS_DIR = path.join(".", "migrations");
 
     const client = createClient({
