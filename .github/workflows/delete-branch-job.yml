@@ -9,4 +9,4 @@ jobs:
         uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0.3
         env:
           CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
-          DATA: ${{ github }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
